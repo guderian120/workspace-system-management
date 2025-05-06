@@ -10,19 +10,32 @@ import subprocess
 # CSRF exemption for testing (for non-browser clients)
 sudo_password = "guderian120"  
 
+def run_sudo_command(command_list, sudo_password):
+    """Run a command with sudo and provide password via stdin."""
+    process = subprocess.Popen(
+        ['sudo', '-S'] + command_list,
+        stdin=subprocess.PIPE,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        universal_newlines=True
+    )
+    stdout, stderr = process.communicate(sudo_password + '\n')
+    if process.returncode != 0:
+        raise RuntimeError(f"Command failed: {' '.join(command_list)}\nError: {stderr.strip()}")
+    return stdout.strip()
+
 
 
 def generate_temp_password(length=10):
     chars = string.ascii_letters + string.digits + "!@#$%^&*"
     return ''.join(random.choice(chars) for _ in range(length))
 
-def ensure_group_exists(group_name):
+def ensure_group_exists(group_name, sudo_password):
     # Check if group exists
     check_group = subprocess.run(['getent', 'group', group_name], stdout=subprocess.DEVNULL)
     if check_group.returncode != 0:
-        # Create group if it doesn't exist
-        subprocess.run(['sudo', 'groupadd', group_name], check=True)
-        print(f"Group '{group_name}' created.")
+        print(f"Creating group '{group_name}'...")
+        run_sudo_command(['groupadd', group_name], sudo_password)
 
 
 @csrf_exempt
@@ -52,10 +65,11 @@ def handle_csv_upload(request):
                 full_name = row.get('full_name', "").split(' ')
                 department = row.get('department', "")
                 email = row.get('email', "")
+                ensure_group_exists(department, sudo_password)
                 temp_password = generate_temp_password()
                 print(full_name)
 
-                cmd = f"sudo -S useradd -m -G {ensure_group_exists(department)} -c {'-'.join(full_name)} {username}"
+                cmd = f"sudo -S useradd -m -G {department} -c {'-'.join(full_name)} {username}"
                 cmd = cmd.split(' ')
                 print(f"Running command: {cmd}")
                 process = subprocess.Popen(
