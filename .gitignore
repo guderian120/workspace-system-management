@@ -1,0 +1,13 @@
+*pycache*
+*.py[cod]
+gui_manager/*
+gui_manager
+pyqt5/*
+pyqt5_env/*
+pyqt5_env
+venv/*
+.venv
+venv
+db.sqlite3
+*.db
+*.sqlite3
