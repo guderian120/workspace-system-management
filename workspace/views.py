@@ -16,6 +16,13 @@ def generate_temp_password(length=10):
     chars = string.ascii_letters + string.digits + "!@#$%^&*"
     return ''.join(random.choice(chars) for _ in range(length))
 
+def ensure_group_exists(group_name):
+    # Check if group exists
+    check_group = subprocess.run(['getent', 'group', group_name], stdout=subprocess.DEVNULL)
+    if check_group.returncode != 0:
+        # Create group if it doesn't exist
+        subprocess.run(['sudo', 'groupadd', group_name], check=True)
+        print(f"Group '{group_name}' created.")
 
 
 @csrf_exempt
@@ -48,7 +55,7 @@ def handle_csv_upload(request):
                 temp_password = generate_temp_password()
                 print(full_name)
 
-                cmd = f"sudo -S useradd -m -G {department} -c {'-'.join(full_name)} {username}"
+                cmd = f"sudo -S useradd -m -G {ensure_group_exists(department)} -c {'-'.join(full_name)} {username}"
                 cmd = cmd.split(' ')
                 print(f"Running command: {cmd}")
                 process = subprocess.Popen(
