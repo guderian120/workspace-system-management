@@ -22,7 +22,7 @@ This project creates a cloud-based workspace that accepts a CSV file via an API,
   - Temporary secure passwords
   - Password reset enforcement on first login
 - Sends out email credentials to users
-- Can be extended to support interactive terminal access via Wetty
+- Real time Cloud interactive WorkSpace access via Wetty
 
 ---
 
