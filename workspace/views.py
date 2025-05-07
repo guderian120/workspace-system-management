@@ -1,10 +1,9 @@
 import pandas as pd
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from .models import CsvData
 import random
 import string
-from .email_server import send_email, send_email_to_admin
+from .email_server import send_email
 import subprocess
 
 # CSRF exemption for testing (for non-browser clients)
