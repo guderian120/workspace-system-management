@@ -2,7 +2,6 @@
 
 This project creates a cloud-based workspace that accepts a CSV file via an API, automatically provisions system users, sends out email notifications, and enables live interaction with a server environment using [Wetty](https://github.com/butlerx/wetty).
 
-> ⚠️ This project is intended to run on **Linux systems only** (preferably Ubuntu) and assumes the executing environment has appropriate privileges (sudo access).
 
 ---
 
