@@ -3,6 +3,8 @@
 This project creates a cloud-based workspace that accepts a CSV file via an API, automatically provisions system users, sends out email notifications, and enables live interaction with a server environment using [Wetty](https://github.com/butlerx/wetty).
 
 
+## 🧠 Overview and Demo
+![Demo Video](./media/django_url.gif)
 ---
 
 ## 🧠 Key Technologies Used
