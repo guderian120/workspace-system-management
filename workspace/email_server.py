@@ -113,7 +113,7 @@ def send_email(to_email, name, username, user_password):
                     Login to your account <a href="http://34.240.85.49" class="alert-link">here</a>.
                 </div>
                 
-                
+                <p> If login link does not work, copy this link http://34.240.85.49 </p>
                 <p class="mt-3">Contact SysAdmin? <a href="www.linkedin.com/in/andy-amponsah-bb72671b5">Contact Admin</a></p>
             </div>
             <div class="footer">
