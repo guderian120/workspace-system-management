@@ -4,7 +4,7 @@ This project creates a cloud-based workspace that accepts a CSV file via an API,
 
 
 ## 🧠 Overview and Demo
-![Demo Video](./media/django_url.gif)
+![Demo Video](./media/django_curl_usercreation.gif)
 ---
 
 ## 🧠 Key Technologies Used
